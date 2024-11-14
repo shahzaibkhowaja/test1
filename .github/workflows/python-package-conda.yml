@@ -14,7 +14,7 @@ jobs:
     permissions:
       actions: read
       contents: read
-      security-events: write  # Required for uploading CodeQL results to GitHub Security tab
+      security-events: write
 
     steps:
     - name: Checkout repository
@@ -23,10 +23,24 @@ jobs:
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v2
       with:
-        languages: "javascript,python"  # Adjust to match the languages in your codebase
+        languages: "javascript,python"
 
-    - name: Perform CodeQL Analysis
+    - name: Perform CodeQL Analysis for JavaScript
       uses: github/codeql-action/analyze@v2
+      with:
+        category: "javascript-analysis"
 
-    - name: Upload SARIF file to GitHub Security
+    - name: Perform CodeQL Analysis for Python
+      uses: github/codeql-action/analyze@v2
+      with:
+        category: "python-analysis"
+
+    - name: Upload JavaScript SARIF file
       uses: github/codeql-action/upload-sarif@v2
+      with:
+        category: "javascript-analysis"
+
+    - name: Upload Python SARIF file
+      uses: github/codeql-action/upload-sarif@v2
+      with:
+        category: "python-analysis"
