@@ -7,8 +7,8 @@ from email.mime.multipart import MIMEMultipart
 # Function to send email notification to multiple recipients
 def send_email(subject, body, to_emails):
     from_email = "shahzaib.kkhowaja@gmail.com"  # Replace with your email address
-    from_password = "sldv vmiz sieb pquq"  # Replace with your email password (or App Password if using 2FA)
-    smtp_server = "smtp.gmail.com"  # Example for Gmail
+    from_password = "sldv vmiz sieb pquq"  # Hardcoded password, which is insecure
+    smtp_server = "smtp.gmail.com"
     smtp_port = 587
 
     # Convert the list of emails to a comma-separated string
@@ -17,7 +17,7 @@ def send_email(subject, body, to_emails):
     # Create the email message
     msg = MIMEMultipart()
     msg['From'] = from_email
-    msg['To'] = to_email_str  # Multiple recipients
+    msg['To'] = to_email_str
     msg['Subject'] = subject
 
     msg.attach(MIMEText(body, 'plain'))
@@ -28,9 +28,9 @@ def send_email(subject, body, to_emails):
         server.starttls()  # Start TLS encryption
         server.login(from_email, from_password)  # Login to the Gmail account
         server.sendmail(from_email, to_emails, msg.as_string())  # Send email to multiple recipients
-        server.quit()  # Logout from the server
+        server.quit()
         print("Email sent successfully!")
-    except Exception as e:
+    except Exception as e:  # Broad exception catch, not ideal for secure applications
         print(f"Failed to send email: {e}")
 
 # Function to check the URL's status code
@@ -44,7 +44,7 @@ def check_url_status(url):
             
             # List of recipients
             recipients = [
-                "shahzaib.kkhowaja@gmail.com",  # Replace with actual email addresses
+                "shahzaib.kkhowaja@gmail.com",
                 "muhammad.usman.ashraf.10@gmail.com"
             ]
             send_email(subject, body, recipients)  # Send email only if status is 500
@@ -54,11 +54,10 @@ def check_url_status(url):
         print(f"Error checking URL: {e}")
 
 # Example URL to check
-url_to_check = "https://httpstat.us/500"  # Replace with your target URL
+url_to_check = "https://httpstat.us/500"
 
 # Infinite loop to check the URL every minute
 while True:
-    check_url_status(url_to_check)  # Call the function to check the URL
+    check_url_status(url_to_check)
     print("Waiting for the next check...")
-    time.sleep(60)  # Wait for 1 minute before checking again
-
+    time.sleep(60)
