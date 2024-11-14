@@ -2,9 +2,9 @@ name: "CodeQL Analysis"
 
 on:
   push:
-    branches: [ "main" ]  # Replace with your default branch
+    branches: [ "main1" ]  # Replace with your default branch
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main1" ]
 
 jobs:
   analyze:
