@@ -1,0 +1,29 @@
+name: "CodeQL Analysis"
+
+on:
+  push:
+    branches: [ "main" ]  # Replace with your default branch
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  analyze:
+    name: Analyze code with CodeQL
+    runs-on: ubuntu-latest
+
+    permissions:
+      actions: read
+      contents: read
+      security-events: write  # Required for uploading CodeQL results to GitHub Security tab
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v2
+      with:
+        languages: "javascript,python"  # Adjust to match the languages in your codebase
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v2
